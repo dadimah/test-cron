@@ -5,7 +5,7 @@ node('master') {
     // Parameterized cron trigger
     properties([
         pipelineTriggers([
-            parameterizedCron('H/5 * * * * %ENABLE_SONAR_ANALYSIS=true')
+            parameterizedCron('H/1 * * * * %ENABLE_SONAR_ANALYSIS=true')
         ]),
         parameters([
             booleanParam(defaultValue: false, description: 'Enable Sonar Analysis,default is false', name: 'ENABLE_SONAR_ANALYSIS')
@@ -17,6 +17,7 @@ node('master') {
 
         stage 'SCM Code Checkout'
         echo "Checking out code..."
+        echo "${ENABLE_SONAR_ANALYSIS}"
 
         stage 'Build'
         echo "Building the project..."
